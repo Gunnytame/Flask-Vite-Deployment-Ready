@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import User from './user';
+import Sales from './sales';
+import Login from './Login';
+import AuthService from './Authentication';
+import Category from './category';
+import Home from './Home';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentUser, setCurrentUser] = useState(null);
+
+//   React.useEffect(() => {
+//       const user = AuthService.getCurrentUser();
+//       if (user) {
+//           setCurrentUser(user);
+//       }
+//   }, []);
+
+//   const handleLogout = () => {
+//       AuthService.logout();
+//       setCurrentUser(null);
+//   };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/">
+                <Home />
+            </Route>
+            <Route exact path="/login">
+                <Login />
+            </Route>
+        </Switch>
+    </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
+
+// <Router>
+// <Switch>
+//     <Route path="/login" component={Login} />
+//     <Route path="/user" component={User} />
+//     {/* <Route
+//         path="/sales"
+//         render={() =>
+//             currentUser ? (
+//                 <Sales onLogout={handleLogout} />
+//             ) : (
+//                 <Redirect to="/login" />
+//             )
+//         }
+//     /> */}
+//     <Route path="/category" component={Category} />
+//     <Route path="/checkout" component={Checkout} /> 
+//     <Route path="/" component={Home} />
+// </Switch>
+// </Router>

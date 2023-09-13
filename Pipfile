@@ -18,6 +18,7 @@ honcho = "*"
 importlib-metadata = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
-psycopg2 = "*"
+flask-login = "*"
 
-
+[requires]
+python_version ="3.8.13"
