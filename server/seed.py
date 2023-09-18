@@ -20,7 +20,7 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-        sample_user = User(username='sample_user',password="123", email="123@gmail.com")
+        sample_user = User(password="123", email="123@gmail.com")
         sample_category1 = Category(name='Shirts')
         sample_category2 = Category(name='Skirts')
         sample_sale1 = Sales(product_name='Shirt A', price=20, category=sample_category1,description="cool",quantity=2 )

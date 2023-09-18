@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import AuthService from './Authentication';
+import { useHistory, NavLink } from 'react-router-dom';
 
-function Login(props) {
+function Login() {
+    const history = useHistory();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
@@ -9,13 +11,12 @@ function Login(props) {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        AuthService.login(username, password)
-            .then(() => {
-                props.history.push('/sales');
-            })
-            .catch((error) => {
-                setLoginError(error.response.data.message);
-            });
+        if (username === 'exampleuser' && password === 'password') {
+            console.log("logged in")
+            history.push('/sales');  // Redirect to sales page on successful login
+        } else {
+            setLoginError('Invalid username or password.');
+        }
     };
 
     return (
@@ -41,6 +42,7 @@ function Login(props) {
                 <button type="submit">Login</button>
             </form>
             {loginError && <p>{loginError}</p>}
+            <NavLink to="/">Go back to Home</NavLink>
         </div>
     );
 }

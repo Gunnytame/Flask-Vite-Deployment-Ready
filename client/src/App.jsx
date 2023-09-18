@@ -1,63 +1,36 @@
-import './App.css'
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import User from './user';
-import Sales from './sales';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Sales from './Sales';
 import Login from './Login';
-import AuthService from './Authentication';
 import Category from './category';
+import Checkout from './Checkout';
 import Home from './Home';
+import Cart from './Cart';
+import SignUp from './SignUp';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
-//   React.useEffect(() => {
-//       const user = AuthService.getCurrentUser();
-//       if (user) {
-//           setCurrentUser(user);
-//       }
-//   }, []);
+    const handleLogout = () => {
+        setCurrentUser(null);
+    };
 
-//   const handleLogout = () => {
-//       AuthService.logout();
-//       setCurrentUser(null);
-//   };
-
-  return (
-    <>
-    <BrowserRouter>
-        <Switch>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            <Route exact path="/login">
-                <Login />
-            </Route>
-        </Switch>
-    </BrowserRouter>
-    </>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/sales">
+                    {currentUser ? <Sales onLogout={handleLogout} /> : <Redirect to="/login" />}
+                </Route>
+                <Route path="/signup" component={SignUp} />
+                <Route path="/category" component={Category} />
+                <Route path="/checkout" component={Checkout} />
+                <Route path="/cart" component={Cart} />
+                <Route exact path="/" component={Home} />
+                <Route render={() => <Redirect to="/" />} />
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
-
-
-// <Router>
-// <Switch>
-//     <Route path="/login" component={Login} />
-//     <Route path="/user" component={User} />
-//     {/* <Route
-//         path="/sales"
-//         render={() =>
-//             currentUser ? (
-//                 <Sales onLogout={handleLogout} />
-//             ) : (
-//                 <Redirect to="/login" />
-//             )
-//         }
-//     /> */}
-//     <Route path="/category" component={Category} />
-//     <Route path="/checkout" component={Checkout} /> 
-//     <Route path="/" component={Home} />
-// </Switch>
-// </Router>

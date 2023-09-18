@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink} from 'react-router-dom';
 
 function Cart() {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -19,7 +20,7 @@ function Cart() {
 
     return (
         <div>
-            <h2>Sale Component</h2>
+            <h2>Your Cart</h2>
             <div>
                 <h3>Selected Items:</h3>
                 <ul>
@@ -34,13 +35,14 @@ function Cart() {
             <div>
                 <h3>Add Items to Cart:</h3>
                 <input
-                    type="text"
-                    placeholder="Item Name"
+                    type="search"
+                    placeholder="Search Catalog"
                     value={itemName}
                     onChange={(e) => setItemName(e.target.value)}
                 />
                 <button onClick={addItem}>Add to Cart</button>
             </div>
+            <NavLink to="/">Go back to Home</NavLink>
         </div>
     );
 }

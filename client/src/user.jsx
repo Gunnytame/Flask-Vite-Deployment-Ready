@@ -26,7 +26,6 @@ function User() {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
                         {}
                     </tr>
                 </thead>
@@ -34,7 +33,7 @@ function User() {
                     {users.map(user => (
                         <tr key={user.id}>
                             <td>{user.id}</td>
-                            <td>{user.username}</td>
+                            <td>{user.email}</td>
                             {}
                         </tr>
                     ))}

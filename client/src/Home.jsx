@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <div>
-            <h2>Welcome to Our Clothing Store</h2>
+            <h2>Anahi & Me</h2>
             <nav>
                 <ul>
+                    <li>
+                    <Link to="/signup">SignUp</Link> 
+                    </li>
                     <li>
                         <Link to="/login">Login</Link>
                     </li>

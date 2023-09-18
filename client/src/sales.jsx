@@ -1,5 +1,6 @@
-import React, { useState, useEffect,useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Sales() {
     const [sales, setSales] = useState([]);
@@ -19,7 +20,7 @@ function Sales() {
     }, []);
 
     const navigateToHome = () => {
-        history.push('./Home');
+        history.push('/Home');
     };
 
     return (
@@ -49,4 +50,3 @@ function Sales() {
 }
 
 export default Sales;
-

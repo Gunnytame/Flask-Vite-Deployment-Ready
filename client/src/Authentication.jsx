@@ -1,26 +1,39 @@
-import axios from 'axios';
+// import React from 'react';
+// import axios from 'axios';
 
-const API_URL = '/auth';
+// const API_URL = '/auth';
 
-class AuthService {
-    login(username, password) {
-        return axios
-            .post(`${API_URL}/login`, { username, password })
-            .then((response) => {
-                if (response.data.token) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                }
-                return response.data;
-            });
-    }
+// class AuthService extends React.Component {
+//     login(email, password) {
+//         return axios
+//             .post(`${API_URL}/login`, { email, password })
+//             .then((response) => {
+//                 if (response.data.token) {
+//                     localStorage.setItem('user', JSON.stringify(response.data));
+//                 }
+//                 return response.data;
+//             });
+//     }
 
-    logout() {
-        localStorage.removeItem('user');
-    }
+//     logout() {
+//         localStorage.removeItem('user');
+//     }
 
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
-    }
-}
+//     getCurrentUser() {
+//         return JSON.parse(localStorage.getItem('user'));
+//     }
 
-export default new AuthService();
+//     register(email, password) {
+//         return axios
+//             .post(`${API_URL}/register`, { email, password })
+//             .then((response) => {
+//                 return response.data;
+//             });
+//     }
+
+//     render() {
+//         return null;
+//     }
+// }
+
+// export default AuthService;

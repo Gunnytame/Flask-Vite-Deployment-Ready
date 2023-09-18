@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavLink, Route, Switch, useRouteMatch } from 'react';
+import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 
-function Shirts() {
+
+function Tops() {
   return (
     <div>
-      <h2>Shirts</h2>
+      <h2>Tops</h2>
       {/* Add content specific to Shirts category */}
     </div>
   );
@@ -45,7 +46,7 @@ function Category() {
       <h2>Categories</h2>
       <ul>
         <li>
-          <NavLink to={`${url}/shirts`}>Shirts</NavLink>
+          <NavLink to={`${url}/Tops`}>Tops</NavLink>
         </li>
         <li>
           <NavLink to={`${url}/skirts`}>Skirts</NavLink>
@@ -59,11 +60,12 @@ function Category() {
       </ul>
 
       <Switch>
-        <Route path={`${url}/shirts`} component={Shirts} />
+        <Route path={`${url}/Tops`} component={Tops} />
         <Route path={`${url}/skirts`} component={Skirts} />
         <Route path={`${url}/shorts`} component={Shorts} />
         <Route path={`${url}/two-pieces`} component={TwoPieces} />
       </Switch>
+      <NavLink to="/">Go back to Home</NavLink>
     </div>
   );
 }
