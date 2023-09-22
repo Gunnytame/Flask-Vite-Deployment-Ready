@@ -10,11 +10,16 @@ function Home() {
     setIsLoggedIn(userIsLoggedIn);
   }, []);
 
-  const handleLogout = () => {
-    // Implement your logout logic here, e.g., clear authentication tokens
-    // For demonstration purposes, we'll remove a simulated flag from localStorage
-    localStorage.setItem('isLoggedIn', 'false');
-    setIsLoggedIn(false);
+  const handleLogout = (e) => {
+    e.preventDefault()
+    fetch("/api/logout",{
+      method: "DELETE",
+      headers:{
+        "Content-Type": "application/json"
+      }
+    })
+    // localStorage.setItem('isLoggedIn', 'false');
+    // setIsLoggedIn(false);
   };
 
   return (
@@ -37,11 +42,12 @@ function Home() {
           <li>
             <Link to="/cart">Cart</Link>
           </li>
-          {isLoggedIn && (
+          <li>
+            <Link to="/UpdateEmail">UpddateEmail</Link>
+          </li>
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
-          )}
         </ul>
       </nav>
     </div>

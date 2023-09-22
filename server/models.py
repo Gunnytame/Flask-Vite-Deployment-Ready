@@ -1,5 +1,6 @@
-from config import db
-import bcrypt
+from config import db,bcrypt
+from sqlalchemy.ext.hybrid import hybrid_property
+
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,19 +24,15 @@ class Sales(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    password_hash = db.Column(db.String(255), nullable=False)
+    _password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    hash_password = db.Column(db.String(255), nullable=False)
 #     def __init__(self, password, email):
 #         self.password_hash = self._hash_password(password)
 #         self.email = email
 
     def _hash_password(self, password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    @password_hash.setter
-    def password(self, password):
-        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
-        self._password_hash = password_hash.decode('utf-8')
+    
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(
@@ -47,6 +44,11 @@ class User(db.Model):
     @hybrid_property
     def password_hash(self):
         return self._password_hash
+    
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
 
     def __str__(self):
         return self.email

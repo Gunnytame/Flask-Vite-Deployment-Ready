@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 
 function Tops() {
-  return (
+  return(
     <div>
       <h2>Tops</h2>
       <p>Sample Product: Beautiful Blouse</p>
@@ -11,12 +11,36 @@ function Tops() {
 }
 
 function Skirts() {
+  const [skirtArray,setSkirtArray ] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/sales") .then(res => res.json())
+    .then(data => setSkirtArray(data))
+    
+    
+    
+  }, []);
+
   return (
     <div>
       <h2>Skirts</h2>
       <p>Sample Product: Elegant Skirt</p>
+      {skirtArray.map((Skirt) => (
+        <div> 
+          <h1>
+            {Skirt.product_name}
+        
+          </h1>
+          <p>
+            {Skirt.description}
+          </p>
+        </div>
+      ))}
+
     </div>
+
   );
+
 }
 
 function Shorts() {

@@ -7,7 +7,7 @@ function Sales() {
 
     const fetchSales = async () => {
         try {
-            const response = await axios.get('./sales');
+            const response = await axios.get('/sales');
             setSales(response.data);
         } catch (error) {
             console.error('Error fetching sales:', error);

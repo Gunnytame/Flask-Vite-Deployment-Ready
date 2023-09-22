@@ -11,7 +11,7 @@ const AuthService = {
   },
 };
 
-function SignUp(props) {
+function SignUp({setCurrentUser}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -21,18 +21,26 @@ function SignUp(props) {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    //setIsSubmitting(true);
 
-    AuthService.register(email, password, username)
-      .then(() => {
-        setShowSuccessPopup(true);
-      })
-      .catch((error) => {
-        setRegistrationError(error.response.data.message);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+    fetch("/api/signup", {
+      method:"POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email: email, password: password})
+    })
+    .then(res => res.json())
+    .then(data => setCurrentUser(data))
+
+    // AuthService.register(email, password, username)
+    //   .then(() => {
+    //     setShowSuccessPopup(true);
+    //   })
+    //   .catch((error) => {
+    //     setRegistrationError(error.response.data.message);
+    //   })
+    //   .finally(() => {
+    //     setIsSubmitting(false);
+    //   });
   };
 
   const closePopup = () => {
@@ -41,10 +49,10 @@ function SignUp(props) {
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      {/* <h2>Sign Up</h2>
       {showSuccessPopup ? (
         <SignupSuccessPopup onClose={closePopup} />
-      ) : (
+      ) : ( */}
         <form onSubmit={handleSignUp}>
           <div>
             <label htmlFor="email">Email:</label>
@@ -53,10 +61,10 @@ function SignUp(props) {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="username">Username:</label>
             <input
               type="text"
@@ -65,7 +73,7 @@ function SignUp(props) {
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="password">Password:</label>
             <input
@@ -73,14 +81,14 @@ function SignUp(props) {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              
             />
           </div>
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Signing Up...' : 'Sign Up'}
           </button>
         </form>
-      )}
+      {/* )} */}
       {registrationError && <p>{registrationError}</p>}
       <NavLink to="/">Go back to Home</NavLink>
     </div>

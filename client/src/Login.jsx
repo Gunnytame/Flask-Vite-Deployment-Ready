@@ -4,26 +4,40 @@ import axios from 'axios';
 
 const API_BASE_URL = 'postgresql://username:your_password_here@localhost/db_name'; 
 
-function Login() {
+function Login({setCurrentUser}) {
   const history = useHistory();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log("Hello")
 
-    axios
-      .post(`${API_BASE_URL}/login`, { username, password })
-      .then((response) => {
-        console.log('Login successful');
-        history.push('/sales'); // Redirect to sales page on successful login
-      })
-      .catch((error) => {
-        console.error('Login failed:', error.response.data.message);
-        setLoginError('Invalid username or password.');
-      });
+    // const headers = {
+    //   "Content-Type": "application/jsona"
+    // }
+
+    fetch("/api/login", {
+      method:"POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email: email, password: password})
+    })
+    .then(res => res.json())
+    .then(data => setCurrentUser(data))
+
+  //   axios
+  //     .post(`http://localhost:5555/login`, headers, { email, password })
+  //     .then((response) => {
+  //       console.log(response)
+  //       console.log('Login successful');
+  //       history.push('/sales'); // Redirect to sales page on successful login
+  //     })
+  //     .catch((error) => {
+  //       console.error('Login failed:', error.response.data.message);
+  //       setLoginError('Invalid username or password.');
+  //     });
   };
 
   return (
@@ -34,8 +48,8 @@ function Login() {
           <label>Username:</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
