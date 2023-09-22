@@ -45,10 +45,8 @@ function User() {
     const handleLogout = async () => {
         try {
             await axios.get('/auth/logout');
-            // Handle successful logout (e.g., redirect to login page)
         } catch (error) {
             console.error('Logout error:', error);
-            // Handle logout error (e.g., show error message)
         }
     };
 

@@ -1,5 +1,5 @@
 from config import db
-
+import bcrypt
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,11 +20,39 @@ class Sales(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
                            onupdate=db.func.current_timestamp())
-    
-class User(db.Model,):
-        id = db.Column(db.Integer, primary_key=True)
-        password = db.Column(db.String(255), nullable=False) 
-        email = db.Column(db.String(255), unique=True, nullable=False)
 
-def __str__(self):
-        return self.product_name
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    password_hash = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    hash_password = db.Column(db.String(255), nullable=False)
+#     def __init__(self, password, email):
+#         self.password_hash = self._hash_password(password)
+#         self.email = email
+
+    def _hash_password(self, password):
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    @password_hash.setter
+    def password(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8')
+        )
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+
+    def __str__(self):
+        return self.email
+    
+
+
+
+# def __str__(self):
+#         return self.product_name

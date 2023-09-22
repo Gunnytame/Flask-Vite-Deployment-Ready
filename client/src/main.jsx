@@ -12,4 +12,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 
-// export default App;
+export default App;

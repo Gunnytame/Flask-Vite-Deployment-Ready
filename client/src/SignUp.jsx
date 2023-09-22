@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import SignupSuccessPopup from './SignUpPopUp';
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:8000'; 
 
 const AuthService = {
-  register: (email, password) => {
-    return new Promise((resolve, reject) => {
-      if (email && password) {
-        resolve();
-      } else {
-        reject({ response: { data: { message: 'Registration failed.' } } });
-      }
-    });
+  register: (email, password, username) => {
+    return axios.post(`${API_BASE_URL}/signup`, { email, password, username });
   },
 };
 
 function SignUp(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [registrationError, setRegistrationError] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +23,7 @@ function SignUp(props) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    AuthService.register(email, password)
+    AuthService.register(email, password, username)
       .then(() => {
         setShowSuccessPopup(true);
       })
@@ -55,6 +53,16 @@ function SignUp(props) {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>

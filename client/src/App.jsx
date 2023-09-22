@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Sales from './Sales';
+import Sales from './sales';
 import Login from './Login';
 import Category from './category';
 import Checkout from './Checkout';

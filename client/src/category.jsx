@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 
-
 function Tops() {
   return (
     <div>
       <h2>Tops</h2>
-      {/* Add content specific to Shirts category */}
+      <p>Sample Product: Beautiful Blouse</p>
     </div>
   );
 }
@@ -15,7 +14,7 @@ function Skirts() {
   return (
     <div>
       <h2>Skirts</h2>
-      {/* Add content specific to Skirts category */}
+      <p>Sample Product: Elegant Skirt</p>
     </div>
   );
 }
@@ -24,7 +23,7 @@ function Shorts() {
   return (
     <div>
       <h2>Shorts</h2>
-      {/* Add content specific to Shorts category */}
+      <p>Sample Product: Comfy Shorts</p>
     </div>
   );
 }
@@ -33,7 +32,7 @@ function TwoPieces() {
   return (
     <div>
       <h2>Two Pieces</h2>
-      {/* Add content specific to Two Pieces category */}
+      <p>Sample Product: Stylish Two-Piece Outfit</p>
     </div>
   );
 }

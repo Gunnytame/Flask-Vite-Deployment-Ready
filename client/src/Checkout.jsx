@@ -4,7 +4,7 @@ import CheckoutPage from './CheckoutPage';
 function Checkout() {
   return (
     <div>
-      <CheckoutPage /> {/* Render the CheckoutPage component */}
+      <CheckoutPage /> {}
     </div>
     
   );

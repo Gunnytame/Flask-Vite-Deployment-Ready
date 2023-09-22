@@ -15,7 +15,7 @@ const SignUpPopUp = () => {
       {showPopUp && (
         <div className="popup">
           <p>Thank you for signing up!</p>
-          <Confetti /> {/* Render the Confetti component */}
+          <Confetti /> {}
         </div>
       )}
 
